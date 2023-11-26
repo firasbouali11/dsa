@@ -57,8 +57,26 @@ def countSubsequenceWithSumK(ss,s,i,k,dp):
     r = dp[i] = countSubsequenceWithSumK(ss,s,i+1,k,dp)
     return l+r
 
+def countCombinationSumK(l, i, k, dp):
+    if i == len(l): return 0
+    if k == 0: return 1
+    if dp[i][k] != 0:
+        return dp[i][k]
+    s = 0 
+    if k - l[i] >= 0:
+        s = countCombinationSumK(l, i, k - l[i], dp)
+    r = countCombinationSumK(l, i+1, k, dp)
+    dp[i][k] = s+r
+    return dp[i][k]
 
 
 arr = [1,5,6,8,9,7,3,3]
 dp = [0] * len(arr)
 print(countSubsequenceWithSumK(arr,0,0,9,dp))
+
+
+arr2 = [1,2]
+k = 3
+dp = [[0] * len(range(k+1)) for _ in range(len(arr2) + 1)]
+x = countCombinationSumK(arr2, 0, k, dp)
+print(x)
