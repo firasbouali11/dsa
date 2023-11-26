@@ -1,4 +1,5 @@
 from structure import TreeNode
+from sys import maxsize
 
 def maxDepth(node):
     if node == None: return 0
@@ -32,8 +33,20 @@ def getPathToNode(node, k):
         return [node.data] + r
     return []
 
-def lca(node):
-    pass
+def lca(root, x, y):
+    if root == None or root.data == x or root.data == y: return root
+    l = lca(root.left, x, y)
+    r = lca(root.right, x, y)
+    if l is None: return r
+    elif r is None: return l
+    else: return root
+  
+def isBST(root, l = -1 * maxsize, h = maxsize):
+    if root is None: return True
+    if not(l < root.data < h): return False
+    if not isBST(root.left, l, root.data): return False
+    if not isBST(root.right, root.data, h): return False
+    return True
 
 node3 = TreeNode(4)
 node1 = TreeNode(3)
