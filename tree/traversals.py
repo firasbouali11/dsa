@@ -18,17 +18,13 @@ def bfs(root):
     if root == None: return
     queue = [root]
     while queue:
-        level = []
-        for _ in range(len(queue)):
-            node = queue.pop(0)
-            if node.left is not None:
-                queue.append(node.left)
-            if node.right is not None:
-                queue.append(node.right)
-            level.append(node.data)
-        ans.append(level)
-    for node in ans:
-        print(node)
+        node = queue.pop(0)
+        if node.left is not None:
+            queue.append(node.left)
+        if node.right is not None:
+            queue.append(node.right)
+        ans.append(node)
+    print(ans)
 
 node3 = TreeNode(4)
 node1 = TreeNode(3)
