@@ -1,6 +1,6 @@
 # longest commom subsequence between 2 strings
 def lcs(s,t,i,j,dp):
-    if i == -1 or j == -1: return 0
+    if i < 0 or j < 0: return 0
     if dp[i][j] != -1: return dp[i][j]
     if s[i] == t[j]: 
         dp[i][j] = 1 + lcs(s,t,i-1,j-1,dp)
@@ -9,12 +9,27 @@ def lcs(s,t,i,j,dp):
     r = lcs(s,t,i,j-1,dp)
     dp[i][j] = max(l,r)
     return dp[i][j] 
+
+def lcsTab(s, t):
+    n = len(s)
+    m = len(t)
+    dp = [[0] * (m+1) for _ in range(n+1)]
+    for i in range(1, n+1):
+        for j in range(1, m+1):
+            if s[i-1] == t[j-1]: 
+                dp[i][j] = 1 + dp[i-1][j-1]
+            else: 
+                l = dp[i-1][j]
+                r = dp[i][j-1]
+                dp[i][j] = max(l,r)
+    return dp[n][m]
     
 def minimumInsertionToBePlaindrom(s):
     dp = [[-1] * (len(s)) for _ in range(len(s))]
     t = s[::-1]
     n = len(s)
-    x = lcs(s,t,n-1,n-1,dp)
+    # x = lcs(s,t,n-1,n-1,dp)
+    x = lcsTab(s,t)
     return n - x
 
 def wildcardMatch(s, pattern, i, j, dp):
