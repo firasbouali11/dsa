@@ -73,13 +73,3 @@ def wildcardMatchTab(s, pattern):
                 l = dp[i][j-1]
                 dp[i][j] =  r or l
     return dp[n][m]
-s = "awfasdfw"
-print(minimumInsertionToBePlaindrom(s))
-
-ss = "axbcdefcs"
-t = "axb*fcsx"
-n = len(ss)
-m = len(t)
-dp = [[-1] * m for _ in range(n)]
-print(wildcardMatch(ss, t, n-1, m-1, dp))
-print(wildcardMatchTab(ss, t))

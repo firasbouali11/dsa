@@ -18,8 +18,3 @@ def sellBuy1(arr):
         profit = max(cost, profit) 
         mini = min(mini, arr[i])        
     return profit
-
-arr = [1,5,9,2,11]
-n = len(arr)
-print(sellBuy2(arr, n, 0, True))
-print(sellBuy1(arr))

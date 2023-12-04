@@ -25,8 +25,3 @@ def mergeSort(arr, l, h):
     mergeSort(arr, l, mid)
     mergeSort(arr, mid+1, h)
     merge(arr, l, mid, h)
-
-if __name__ == "__main__":
-    arr = [1,2,5,3,6]
-    mergeSort(arr, 0, len(arr))
-    print(arr)

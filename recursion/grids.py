@@ -6,13 +6,3 @@ def minimumPath(g, i, j, dp):
     r = minimumPath(g, i, j-1, dp)
     dp[i][j] = g[i][j] + min(l,r)
     return dp[i][j]
-
-
-grid = [
-    [1,2,3],
-    [3,1,2]
-]
-m = len(grid)
-n = len(grid[0])
-dp = [[-1] * n] * m
-print(minimumPath(grid, m-1, n-1, dp))

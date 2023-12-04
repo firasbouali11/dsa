@@ -25,13 +25,3 @@ def bfs(root):
             queue.append(node.right)
         ans.append(node)
     print(ans)
-
-node3 = TreeNode(4)
-node1 = TreeNode(3)
-node2 = TreeNode(2, node3)
-root = TreeNode(1, node1, node2)
-root2 = TreeNode(1, node1)
-
-dfs(root)
-print("")
-bfs(root)

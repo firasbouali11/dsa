@@ -1,11 +1,3 @@
-graph = [
-    [2],
-    [2],
-    [3,4],
-    [1],
-    []
-]
-
 def bfs(graph):
     queue = [0]
     visited = [False for _ in graph]
@@ -24,9 +16,4 @@ def dfs(graph, i, visited):
     print(i, end=" ")
     for adj in graph[i]:
         if not visited[adj]:
-            dfs(graph, adj, visited) 
-
-
-bfs(graph)
-visited = [False for _ in graph]
-dfs(graph, 0, visited)
+            dfs(graph, adj, visited)
