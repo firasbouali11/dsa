@@ -8,3 +8,36 @@ def binarySearch(arr, l, h, k):
         else:
             return binarySearch(arr, mid, h, k)
     else: return -1
+
+def binarySearchTab(arr, k):
+    l = 0
+    h = len(arr) - 1
+    while(l <= h):
+        mid = (l+h)//2
+        if arr[mid] == k:
+            return mid
+        elif arr[mid] > k:
+            h = mid - 1
+        else:
+            l = mid + 1 
+    return -1
+
+def lowerBound(arr, target):
+    l, r = 0, len(arr) - 1
+    while l <= r:
+        mid = l + (r - l) // 2
+        if arr[mid] >= target:
+            r = mid - 1
+        else:
+            l = mid + 1
+    return l
+      
+def upperBound(arr, target):
+    l, r = 0, len(arr) - 1
+    while l <= r:
+        mid = l + (r - l) // 2
+        if arr[mid] > target:
+            r = mid - 1
+        else:
+            l = mid + 1
+    return l

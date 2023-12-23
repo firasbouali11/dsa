@@ -1,3 +1,6 @@
+from sys import maxsize
+
+
 def isCyclicBFS(graph):
     vis = [False for _ in graph]
     queue = [(0, -1)]
@@ -11,12 +14,23 @@ def isCyclicBFS(graph):
             elif parent != adj: return True
     return False 
 
-def isCyclicDFS(graph, node, vis, parent=-1):
+def isCyclicDFS(graph, node, vis, parent=-1): # for Undirected Graphs
     vis[node] = True
     for adj in graph[node]:
         if not vis[adj]:
             isCyclicDFS(graph, adj, vis, node)
         elif parent != adj: return True
+    return False
+
+def isCyclicDG(graph, node, visited, path): # for Directed Graphs
+    visited[node] = True
+    path[node] = True
+    for adj in graph:
+        if not visited[adj]:
+            if isCyclicDG(graph, adj, visited, path): return True
+        else:
+            if path[adj]: return True
+    path[node] = False
     return False
 
 def isBipartite(graph):
@@ -41,36 +55,23 @@ def topoSort(graph, node, vis, stack): # only applicable in DAG
             topoSort(graph, adj, vis, stack)
     stack.append(node) # the answer is the reverse of the stack
 
-
-if __name__ == "__main__":
-    graph = [
-        [1,3],
-        [0,2],
-        [1,3],
-        [0,4,2],
-        [3]
-    ]   
-    print(isCyclicBFS(graph)) #true
-    vis = [False for _ in graph]
-    print(isCyclicDFS(graph,0,vis)) #true
-    non_bp_graph = [
-        [1],
-        [0,2,3],
-        [1,5],
-        [1,4],
-        [3,5],
-        [2,4],
-    ]
-    print(isBipartite(graph))
-    print(isBipartite(non_bp_graph))
-
+def shortestDistanceTopoSort(graph, start, n):  # for DAG
     stack = []
-    graph = [
-        [1,3],
-        [2],
-        [3],
-        [],
-    ]
-    vis = [False for _ in graph]
-    topoSort(graph, 0, vis, stack)
-    print(stack[::-1])
+    visited = [False for _ in range(n)]
+    distance = [maxsize for _ in range(n)]
+    distance[start] = 0
+
+    def topoSort(node):
+        visited[node] = True
+        for adj, _ in graph[node]:
+            if not visited[adj]:
+                topoSort(adj)
+        stack.append(node)
+    
+    topoSort(start)
+    while stack:
+        node = stack.pop()
+        for adj, w in graph[node]:
+            distance[adj] = min(distance[node] + w, distance[adj])
+    
+    return distance

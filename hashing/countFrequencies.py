@@ -12,10 +12,3 @@ def mapTable(arr,n,k):
             mpp[arr[i]] +=1
         else: mpp[arr[i]] = 1
     return mpp[k]
-
-
-if __name__ == "__main__":
-    arr = [1,1,2,3,5,1,9,8,5,22,2,2,2]
-    n = len(arr)
-    print(hashTable(arr,n,1))
-    print(mapTable(arr,n,5))

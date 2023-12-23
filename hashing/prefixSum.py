@@ -32,7 +32,3 @@ def countSubArray(arr,k):
             prefix[s] = prefix[s] + 1
         else: prefix[s] = 1
     return count
-    
-
-arr = [1,5,6,1,1,1,3,0,-1]
-print(countSubArray(arr, 3))

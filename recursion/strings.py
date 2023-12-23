@@ -13,7 +13,7 @@ def lcs(s,t,i,j,dp):
 def lcsTab(s, t):
     n = len(s)
     m = len(t)
-    dp = [[0] * (m+1) for _ in range(n+1)]
+    dp = [[0] * (m+1)] * (n+1)
     for i in range(1, n+1):
         for j in range(1, m+1):
             if s[i-1] == t[j-1]: 
@@ -53,7 +53,7 @@ def wildcardMatch(s, pattern, i, j, dp):
 """
 when converting recursion to tabulation if we have base cases with negative breaks
 lets make it a base 1 index recursion and:
-    1- write the base
+    1- write the base case
     2- indicies from 1 -> n
     3- copy paste the recursion
 """

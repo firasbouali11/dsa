@@ -13,6 +13,3 @@ def kadane(arr):
             s = 0
             first = i+1
     return s, arr[first: last]
-
-arr = [1,-5,6,-1,8,7,4]
-print(kadane(arr))

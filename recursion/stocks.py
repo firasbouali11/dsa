@@ -11,10 +11,10 @@ def sellBuy2(arr, n, i, buy):
     
 def sellBuy1(arr):
     n = len(arr)
-    mini = arr[0]
+    buy = arr[0]
     profit = 0
     for i in range(1, n):
-        cost = arr[i] - mini
+        cost = arr[i] - buy
         profit = max(cost, profit) 
-        mini = min(mini, arr[i])        
+        buy = min(buy, arr[i])        
     return profit

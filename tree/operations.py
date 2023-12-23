@@ -1,4 +1,3 @@
-from structure import TreeNode
 from sys import maxsize
 
 def maxDepth(node):
@@ -6,6 +5,10 @@ def maxDepth(node):
     l = maxDepth(node.left)
     r = maxDepth(node.right)
     return 1 + max(l,r)
+
+def maxWidth(node):
+    depth = maxDepth(node)
+    return 2**(depth-1)
 
 def checkBalancedTree(node):
     if node == None: return True
@@ -48,14 +51,12 @@ def isBST(root, l = -1 * maxsize, h = maxsize):
     if not isBST(root.right, root.data, h): return False
     return True
 
-node3 = TreeNode(4)
-node1 = TreeNode(3)
-node2 = TreeNode(2, node3)
-root = TreeNode(1, node1, node2)
-root2 = TreeNode(1, node1)
-
-print(maxDepth(root))
-print(checkBalancedTree(root))
-print(identicalTrees(root, root))
-print(identicalTrees(root, root2))
-print(getPathToNode(root, 4))
+def searchInBST(root, k):
+    temp = root
+    while temp is not None:
+        if temp.data == k:
+            return True
+        elif temp.data > k:
+            temp = temp.left
+        else: temp = temp.right
+    return False

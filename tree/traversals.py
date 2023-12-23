@@ -1,5 +1,3 @@
-from structure import TreeNode
-
 """
 preorder traversal root, left, right
 inorder traversal  left, root, right

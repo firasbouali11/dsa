@@ -50,25 +50,41 @@ def isThereSubsequenceTab(arr, k):
     return dp[n-1][k]
 
 
-def countSubsequenceWithSumK(ss,s,i,k,dp):
-    if(i >= len(ss)):
-        if s == k: return 1
-        return 0
-    if dp[i] != 0: return dp[i]
-    s += ss[i]
-    l = dp[i] = countSubsequenceWithSumK(ss,s,i+1,k,dp)
-    s -= ss[i]
-    r = dp[i] = countSubsequenceWithSumK(ss,s,i+1,k,dp)
-    return l+r
-
-def countCombinationSumK(l, i, k, dp):
-    if i >= len(l):
+def countSubsequenceWithSumK(s,n,k,dp):
+    if n == 0:
         if k == 0: return 1
         return 0
-    if dp[i][k] != 0: return dp[i][k]
-    s = 0 
-    if k - l[i] >= 0:
-        s = countCombinationSumK(l, i, k - l[i], dp)
-    r = countCombinationSumK(l, i+1, k, dp)
-    dp[i][k] = s+r
-    return dp[i][k]
+    l = countSubsequenceWithSumK(s,n-1,k-s[n],dp)
+    r = countSubsequenceWithSumK(s,n-1,k,dp)
+    return l+r
+
+def countCombinationSumK(s, n, k, dp):
+    if n == 0:
+        if k == 0: return 1
+        return 0
+    l = 0
+    if k >= s[n]: l = countCombinationSumK(s, n, k-s[n], dp)
+    r = countCombinationSumK(s, n-1, k, dp)
+    return l+r
+
+def getAllPermutatons(s, n, visited, ds, res):
+    if len(ds) == n:
+        res.append("".join(ds[:]))
+        return
+        
+    for j in range(n):
+        if not visited[j]:
+            ds.append(s[j])
+            visited[j] = True
+            getAllPermutatons(s, n, visited, ds, res)
+            visited[j] = False
+            ds.pop()
+
+res = []
+s = "0123456789"
+n = len(s)
+visited = [False for _ in range(n)]
+getAllPermutatons(s, n, visited, [], res)
+print(len(res))
+    
+    
