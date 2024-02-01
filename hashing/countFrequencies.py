@@ -11,4 +11,5 @@ def mapTable(arr,n,k):
         if arr[i] in mpp:
             mpp[arr[i]] +=1
         else: mpp[arr[i]] = 1
+        # or we can use instead of if else: mpp[arr[i]] = mpp.get(arr[i], 0) + 1
     return mpp[k]
