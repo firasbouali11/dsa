@@ -1,12 +1,13 @@
 from sys import maxsize
+from collections import deque
 
 
 def isCyclicBFS(graph):
     vis = [False for _ in graph]
-    queue = [(0, -1)]
+    queue = deque([(0, -1)])
     vis[0] = True 
     while queue:
-        node, parent = queue.pop()
+        node, parent = queue.popleft()
         for adj in graph[node]:
             if not vis[adj]:
                 vis[adj] = True
@@ -35,10 +36,10 @@ def isCyclicDG(graph, node, visited, path): # for Directed Graphs
 
 def isBipartite(graph):
     colors = [-1 for _ in graph]
-    queue = [0]
+    queue = deque([0])
     colors[0] = False
     while queue:
-        node = queue.pop(0)
+        node = queue.popleft()
         for adj in graph[node]:
             if colors[adj] == -1:
                 colors[adj] = not colors[node]
@@ -60,15 +61,7 @@ def shortestDistanceTopoSort(graph, start, n):  # for DAG
     visited = [False for _ in range(n)]
     distance = [maxsize for _ in range(n)]
     distance[start] = 0
-
-    def topoSort(node):
-        visited[node] = True
-        for adj, _ in graph[node]:
-            if not visited[adj]:
-                topoSort(adj)
-        stack.append(node)
-    
-    topoSort(start)
+    topoSort(graph, start, visited, stack)
     while stack:
         node = stack.pop()
         for adj, w in graph[node]:

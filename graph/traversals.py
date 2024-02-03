@@ -1,9 +1,10 @@
+from collections import deque
 def bfs(graph):
-    queue = [0]
+    queue = deque([0])
     visited = [False for _ in graph]
     visited[0] = True
     while queue:
-        node = queue.pop()
+        node = queue.popleft()
         for e in graph[node]:
             if not visited[e]:
                 visited[e] = True

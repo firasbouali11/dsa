@@ -79,12 +79,3 @@ def getAllPermutatons(s, n, visited, ds, res):
             getAllPermutatons(s, n, visited, ds, res)
             visited[j] = False
             ds.pop()
-
-res = []
-s = "0123456789"
-n = len(s)
-visited = [False for _ in range(n)]
-getAllPermutatons(s, n, visited, [], res)
-print(len(res))
-    
-    

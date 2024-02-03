@@ -1,3 +1,4 @@
+from collections import deque
 """
 preorder traversal root, left, right
 inorder traversal  left, root, right
@@ -14,9 +15,9 @@ def dfs(node):
 def bfs(root):
     ans = []
     if root == None: return
-    queue = [root]
+    queue = deque([root])
     while queue:
-        node = queue.pop(0)
+        node = queue.popleft()
         if node.left is not None:
             queue.append(node.left)
         if node.right is not None:
