@@ -4,6 +4,7 @@ Welcome to the Algorithms Playground repository! This collection houses various 
 ## Table of Contents
 - Graph Algorithms
 - Tree Algorithms
+- Recursion
 - Dynamic Programming
 - Hashing
 - Sorting
