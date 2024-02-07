@@ -27,4 +27,19 @@ def bellmanFord(edges, start, v):
     return distance
 
 def prim(graph, start, n):
-    pass
+    mst = []
+    visited = [0] * n
+    s = 0
+    queue = PriorityQueue()
+    queue.put((0, start, -1))
+    while not queue.empty():
+        w, node, parent = queue.get()
+        if visited[node]: continue
+        visited[node] = 1
+        s += w
+        mst.append((node, parent))
+        for adj_w, adj in graph[node]:
+            if not visited[adj]:
+                queue.put((adj_w, adj, node))
+    
+    return mst, s
