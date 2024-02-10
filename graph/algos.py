@@ -1,6 +1,8 @@
 from sys import maxsize
 from queue import PriorityQueue
 
+from DisjointSet import DisjointSet
+
 def dijkstra(graph, start, n):
     queue = PriorityQueue()
     queue.put((0, start))
@@ -37,9 +39,26 @@ def prim(graph, start, n):
         if visited[node]: continue
         visited[node] = 1
         s += w
-        mst.append((node, parent))
+        if parent != -1:
+            mst.append((node, parent))
         for adj_w, adj in graph[node]:
             if not visited[adj]:
                 queue.put((adj_w, adj, node))
     
+    return mst, s
+
+def kruskal(graph, n):
+    edges = []
+    for node in graph:
+        for w, adj in graph[node]:
+            edges.append((w, node, adj))
+    ds = DisjointSet(n)
+    mst = []
+    s = 0
+    edges.sort()
+    for w, u, v in edges:
+        if ds.findParent(u) != ds.findParent(v):
+            s+=w
+            mst.append((u, v))
+            ds.unionBySize(u, v)
     return mst, s
