@@ -41,3 +41,14 @@ def upperBound(arr, target):
         else:
             l = mid + 1
     return l
+
+def LIS(arr):
+    n = len(arr)
+    res = [arr[0]]
+    for i in range(1, n):
+        if arr[i] > res[-1]:
+            res.append(arr[i])
+        else:
+            ind = lowerBound(res, arr[i])
+            res[ind] = arr[i]
+    return len(res)

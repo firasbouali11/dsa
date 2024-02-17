@@ -8,7 +8,6 @@ def getAllSubsequences(s, ds, i, res):
     ds.pop()
     #not pick
     getAllSubsequences(s, ds, i+1,res)
-
     # we can switch the position of pick and not pick 
     return res
     
@@ -27,28 +26,12 @@ def subsequenceWithSumK(ss,ds,s,i,k):
     #not pick
     subsequenceWithSumK(ss, ds,s, i+1,k)
 
-def isThereSubsequence(arr,n,k,dp):
+def isThereSubsequence(arr,n,k):
     if k == 0: return True
     if n < 0 or k < 0: return False
-    if dp[n][k] != -1: return dp[n][k]
-    l = isThereSubsequence(arr,n-1,k-arr[n],dp)
-    r = isThereSubsequence(arr,n-1,k,dp)
-    dp[n][k] = l or r
-    return dp[n][k]
-
-
-def isThereSubsequenceTab(arr, k):
-    n = len(arr)
-    dp = [[False] * (k+1)] * n
-    for i in range(n): dp[i][0] = True 
-    for i in range(1, n):
-        for j in range(1, k+1):
-            l = False
-            if j >= arr[i]: l = dp[i-1][j-arr[i]]
-            r = dp[i-1][j]
-            dp[i][j] = l or r
-    return dp[n-1][k]
-
+    l = isThereSubsequence(arr,n-1,k-arr[n])
+    r = isThereSubsequence(arr,n-1,k)
+    return l or r
 
 def countSubsequenceWithSumK(s,n,k,dp):
     if n == 0:
@@ -69,7 +52,7 @@ def countCombinationSumK(s, n, k, dp):
 
 def getAllPermutatons(s, n, visited, ds, res):
     if len(ds) == n:
-        res.append("".join(ds[:]))
+        res.append(ds[:])
         return
         
     for j in range(n):
@@ -79,3 +62,25 @@ def getAllPermutatons(s, n, visited, ds, res):
             getAllPermutatons(s, n, visited, ds, res)
             visited[j] = False
             ds.pop()
+
+def LIS(arr, i, prev, dp):
+    if i == len(arr): return 0
+    l = 0
+    if dp[i][prev+1] != -1: return dp[i][prev+1]
+    if prev == -1 or arr[i] > arr[prev]:
+        l = 1 + LIS(arr, i+1, i, dp)
+    r = LIS(arr, i+1, prev, dp)
+    dp[i][prev+1] = max(l, r)
+    return dp[i][prev+1]
+
+def LISTab(arr):
+    n = len(arr)
+    dp = [[0 for _ in range(n+1)] for _ in range(n+1)]
+    for i in range(n-1, -1, -1):
+        for prev in range(n-1, -2, -1):
+            l = 0
+            if prev == -1 or arr[i] > arr[prev]:
+                l = 1 + dp[i+1][i+1]
+            r = dp[i+1][prev+1]
+            dp[i][prev+1] = max(l, r)
+    return dp[0][0]
