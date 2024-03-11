@@ -2,7 +2,10 @@ from sys import maxsize
 from queue import PriorityQueue
 
 from DisjointSet import DisjointSet
+from operations import topoSort
+from traversals import dfs
 
+#find shortest path in a graph with no negative weights
 def dijkstra(graph, start, n):
     queue = PriorityQueue()
     queue.put((0, start))
@@ -16,6 +19,7 @@ def dijkstra(graph, start, n):
                 queue.put((distance[adj], adj))
     return distance
 
+#find shortest path in a graph
 def bellmanFord(edges, start, v):
     distance = [maxsize for _ in range(v)]
     distance[start] = 0
@@ -28,6 +32,7 @@ def bellmanFord(edges, start, v):
     
     return distance
 
+#find mst
 def prim(graph, start, n):
     mst = []
     visited = [0] * n
@@ -47,6 +52,7 @@ def prim(graph, start, n):
     
     return mst, s
 
+#find mst
 def kruskal(graph, n):
     edges = []
     for node in graph:
@@ -62,3 +68,27 @@ def kruskal(graph, n):
             mst.append((u, v))
             ds.unionBySize(u, v)
     return mst, s
+
+#find number of strongly connected components
+def kosaraju(graph):
+    visited = [False] * (len(graph))
+    stack = []
+    reversed_graph = {}
+    #sort the edges by the time of finish (toposort)
+    topoSort(graph, 0, visited, stack)
+    #reverse the graph
+    for node, adjs in enumerate(graph):
+        visited[node] = False
+        for adj in adjs:
+            if adj in reversed_graph:
+                reversed_graph[adj].append(node)
+            else:
+                reversed_graph[adj] = [node]
+    count = 0
+    #do a dfs
+    while stack:
+        node = stack.pop()
+        if not visited[node]:
+            count+=1
+            dfs(node)
+    return count

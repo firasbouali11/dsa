@@ -1,15 +1,15 @@
-def hashTable(arr,n,k):
+def hashList(arr,n,k):
     max_element = max(arr)
-    visited = [0 for _ in range(max_element + 1)]
+    count = [0] * (max_element+1)
     for i in range(n):
-        visited[arr[i]] +=1
-    return visited[k]
+        count[arr[i]] +=1
+    return count[k]
 
-def mapTable(arr,n,k):
-    mpp = {}
+def hashMap(arr,n,k):
+    count = {}
     for i in range(n):
-        if arr[i] in mpp:
-            mpp[arr[i]] +=1
-        else: mpp[arr[i]] = 1
-        # or we can use instead of if else: mpp[arr[i]] = mpp.get(arr[i], 0) + 1
-    return mpp[k]
+        if arr[i] in count:
+            count[arr[i]] +=1
+        else: count[arr[i]] = 1
+        # or we can use instead of if else: count[arr[i]] = count.get(arr[i], 0) + 1
+    return count[k]

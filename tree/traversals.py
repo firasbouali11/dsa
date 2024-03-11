@@ -17,10 +17,11 @@ def bfs(root):
     if root == None: return
     queue = deque([root])
     while queue:
+        # for _ in range(len(queue)):
         node = queue.popleft()
-        if node.left is not None:
+        if node.left:
             queue.append(node.left)
-        if node.right is not None:
+        if node.right:
             queue.append(node.right)
         ans.append(node)
     print(ans)

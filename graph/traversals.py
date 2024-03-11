@@ -1,4 +1,5 @@
 from collections import deque
+
 def bfs(graph):
     queue = deque([0])
     visited = [False for _ in graph]
@@ -9,12 +10,11 @@ def bfs(graph):
             if not visited[e]:
                 visited[e] = True
                 queue.append(e)
-        print(node, end = " ")
-    print()
+        #extra action
 
 def dfs(graph, i, visited):
     visited[i] = True
-    print(i, end=" ")
+    #extra action
     for adj in graph[i]:
         if not visited[adj]:
             dfs(graph, adj, visited)
