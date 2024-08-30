@@ -2,14 +2,14 @@ from collections import deque
 
 def bfs(graph):
     queue = deque([0])
-    visited = [False for _ in graph]
+    visited = [False] * len(graph)
     visited[0] = True
     while queue:
         node = queue.popleft()
-        for e in graph[node]:
-            if not visited[e]:
-                visited[e] = True
-                queue.append(e)
+        for adj in graph[node]:
+            if not visited[adj]:
+                visited[adj] = True
+                queue.append(adj)
         #extra action
 
 def dfs(graph, i, visited):

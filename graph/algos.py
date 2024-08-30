@@ -1,5 +1,5 @@
 from sys import maxsize
-from queue import PriorityQueue
+import heapq
 
 from DisjointSet import DisjointSet
 from operations import topoSort
@@ -7,16 +7,16 @@ from traversals import dfs
 
 #find shortest path in a graph with no negative weights
 def dijkstra(graph, start, n):
-    queue = PriorityQueue()
-    queue.put((0, start))
+    queue = []
+    heapq.heappush(queue, (0, start))
     distance = [maxsize for _ in range(n)]
     distance[start] = 0
-    while not queue.empty():
-        _, node = queue.get()
+    while queue:
+        _, node = heapq.heappop(queue)
         for w, adj in graph[node]:
             if distance[node] + w < distance[adj]:
                 distance[adj] = distance[node] + w
-                queue.put((distance[adj], adj))
+                heapq.heappush(queue, (distance[adj], adj))
     return distance
 
 #find shortest path in a graph
@@ -37,10 +37,10 @@ def prim(graph, start, n):
     mst = []
     visited = [0] * n
     s = 0
-    queue = PriorityQueue()
-    queue.put((0, start, -1))
-    while not queue.empty():
-        w, node, parent = queue.get()
+    queue = []
+    heapq.heappush(queue, (0, start, -1))
+    while queue:
+        w, node, parent = heapq.heappop(queue)
         if visited[node]: continue
         visited[node] = 1
         s += w
@@ -48,7 +48,7 @@ def prim(graph, start, n):
             mst.append((node, parent))
         for adj_w, adj in graph[node]:
             if not visited[adj]:
-                queue.put((adj_w, adj, node))
+                heapq.heappush(queue, (adj_w, adj, node))
     
     return mst, s
 

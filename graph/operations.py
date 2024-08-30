@@ -58,8 +58,8 @@ def topoSort(graph, node, vis, stack): # only applicable in DAG
 
 def shortestDistanceTopoSort(graph, start, n):  # for DAG
     stack = []
-    visited = [False for _ in range(n)]
-    distance = [maxsize for _ in range(n)]
+    visited = [False] * n
+    distance = [maxsize] * n
     distance[start] = 0
     topoSort(graph, start, visited, stack)
     while stack:

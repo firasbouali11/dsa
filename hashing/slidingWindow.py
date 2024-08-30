@@ -1,16 +1,17 @@
 #fixed size sliding window
 def maxVowels(s, k):
-        v = {"a", "e", "i", "o", "u"}
-        n = len(s)
-        maxi = 0
-        for i in range(k):
-            if s[i] in v: maxi += 1
-        m = maxi
-        for i in range(1, n-k+1):
-            if s[i-1] in v: maxi-=1
-            if s[i+k-1] in v: maxi+=1
-            m = max(maxi, m)
-        return m
+    v = {"a", "e", "i", "o", "u"}
+    n = len(s)
+    maxi = 0
+    for i in range(k):
+        if s[i] in v: maxi += 1
+    m = maxi
+    for j in range(k, n):
+        i = j - k
+        if s[i] in v: maxi -=1
+        if s[j] in v: maxi +=1
+        m = max(maxi, m)
+    return m
 
 #dynamically sized sliding window
 def numSubarraysWithSum(nums, goal):
